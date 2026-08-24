@@ -95,7 +95,7 @@ The artifact covers the following evaluation dimensions:
 1. robustness of PIR-free APAKE against online password guessing;
 2. APAKE computation and communication overhead;
 3. HRACS computation and communication overhead relative to PHE, PLCS, and IPBCS;
-4. unit costs of dominant cryptographic operations; and
+4. unit costs of dominant cryptographic operations;
 5. latency, gas consumption, and monetary cost of confidential-blockchain storage and retrieval.
 
 ## Reproducibility Notes
