@@ -1,40 +1,27 @@
-                             
-                                      
-                                              
-                                                     
-                              
-                                        
-                                
-                                  
-                                    
-
 async function runLatencyGasTest(NUM_RUNS = 15) {
 
-                                                   
-
-                                                  
   const CONTRACT_ADDRESS =
     "0xCD7c993CF5396930bAA178fC8faE7C2AB443Ad90";
 
-                           
+
   const EXPECTED_CHAIN_ID = 23295n;
   const EXPECTED_CHAIN_ID_HEX = "0x5aff";
 
-  const PSEUDONYM_BYTES = 18;                 
-  const FINGERPRINT_BYTES = 128;               
+  const PSEUDONYM_BYTES = 18;
+  const FINGERPRINT_BYTES = 128;
   const CONFIRMATIONS = 1;
 
-                                     
+
   const GAS_LIMIT = 500000n;
 
-                        
+
   const VERIFY_AFTER_WRITE = true;
 
   if (!Number.isInteger(NUM_RUNS) || NUM_RUNS <= 0) {
     throw new Error("NUM_RUNS must be an integer greater than 0");
   }
 
-                                                                
+
 
   const discoveredProviders = [];
 
@@ -106,7 +93,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
     );
   }
 
-                                                                           
+
 
   const ethers = await import(
     "https://cdn.jsdelivr.net/npm/ethers@6.13.0/+esm"
@@ -118,7 +105,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
 
   const contractAddress = ethers.getAddress(CONTRACT_ADDRESS);
 
-                                                         
+
 
   const currentChainIdHex = await ethereumProvider.request({
     method: "eth_chainId"
@@ -141,14 +128,14 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
     );
   }
 
-                                                                            
 
-                                    
+
+
   await ethereumProvider.request({
     method: "eth_requestAccounts"
   });
 
-                                                    
+
   const wrappedEthereumProvider =
     sapphire.wrapEthereumProvider(ethereumProvider);
 
@@ -168,7 +155,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
     `${ethers.formatEther(balance)} TEST`
   );
 
-                         
+
   const contractCode = await provider.getCode(contractAddress);
 
   if (contractCode === "0x") {
@@ -183,107 +170,107 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
     `${(contractCode.length - 2) / 2} bytes`
   );
 
-                                                            
 
-[
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "bytes18",
-        "name": "pseudonym",
-        "type": "bytes18"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "timestamp",
-        "type": "uint256"
-      }
-    ],
-    "name": "PseudonymUpdated",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes18",
-        "name": "_newPseudonym",
-        "type": "bytes18"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_fingerprint",
-        "type": "bytes"
-      }
-    ],
-    "name": "updatePseudonym",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes18",
-        "name": "_pseudonym",
-        "type": "bytes18"
-      }
-    ],
-    "name": "getPseudonymData",
-    "outputs": [
-      {
-        "internalType": "bytes18",
-        "name": "pseudonym",
-        "type": "bytes18"
-      },
-      {
-        "internalType": "bytes",
-        "name": "fingerprint",
-        "type": "bytes"
-      },
-      {
-        "internalType": "uint256",
-        "name": "timestamp",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes18",
-        "name": "",
-        "type": "bytes18"
-      }
-    ],
-    "name": "pseudonymRegistry",
-    "outputs": [
-      {
-        "internalType": "bytes18",
-        "name": "pseudonym",
-        "type": "bytes18"
-      },
-      {
-        "internalType": "bytes",
-        "name": "fingerprint",
-        "type": "bytes"
-      },
-      {
-        "internalType": "uint256",
-        "name": "timestamp",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  }
-]
 
-                                                   
+  [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes18",
+          "name": "pseudonym",
+          "type": "bytes18"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "PseudonymUpdated",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes18",
+          "name": "_newPseudonym",
+          "type": "bytes18"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_fingerprint",
+          "type": "bytes"
+        }
+      ],
+      "name": "updatePseudonym",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes18",
+          "name": "_pseudonym",
+          "type": "bytes18"
+        }
+      ],
+      "name": "getPseudonymData",
+      "outputs": [
+        {
+          "internalType": "bytes18",
+          "name": "pseudonym",
+          "type": "bytes18"
+        },
+        {
+          "internalType": "bytes",
+          "name": "fingerprint",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes18",
+          "name": "",
+          "type": "bytes18"
+        }
+      ],
+      "name": "pseudonymRegistry",
+      "outputs": [
+        {
+          "internalType": "bytes18",
+          "name": "pseudonym",
+          "type": "bytes18"
+        },
+        {
+          "internalType": "bytes",
+          "name": "fingerprint",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+
+
 
   function randomHex(bytesLength) {
     return ethers.hexlify(
@@ -302,7 +289,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
     ) / values.length;
   }
 
-                     
+
   function sampleStdDev(values) {
     if (values.length <= 1) {
       return 0;
@@ -395,7 +382,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
     console.error("Complete error fields: ", getErrorDetails(error));
   }
 
-                                                         
+
 
   console.log("\n========== Contract Interface Preflight Check ==========");
 
@@ -423,7 +410,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
   const ZERO_PSEUDONYM =
     "0x000000000000000000000000000000000000";
 
-                   
+
   try {
     const result = await contract.getPseudonymData(
       ZERO_PSEUDONYM
@@ -450,7 +437,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
     );
   }
 
-                                         
+
   try {
     const result = await contract.pseudonymRegistry(
       ZERO_PSEUDONYM
@@ -477,7 +464,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
     );
   }
 
-                                           
+
   try {
     const testPseudonym = randomHex(PSEUDONYM_BYTES);
     const testFingerprint = randomHex(FINGERPRINT_BYTES);
@@ -505,7 +492,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
 
   console.log("✅ All interface preflight checks passed; starting the batch write test");
 
-                                                            
+
 
   const generatedPseudonyms = new Set();
 
@@ -529,7 +516,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
 
       const storedTimestamp = storedData[2];
 
-                                    
+
       if (storedTimestamp === 0n) {
         generatedPseudonyms.add(normalized);
         return pseudonym;
@@ -551,7 +538,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
     );
   }
 
-                                                       
+
 
   const results = [];
 
@@ -634,7 +621,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
         `${fingerprintBytes} bytes`
       );
 
-                                 
+
       try {
         await contract.updatePseudonym.staticCall(
           pseudonym,
@@ -743,7 +730,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
         `${feeNativeToken} native token`
       );
 
-                                                        
+
 
       if (VERIFY_AFTER_WRITE) {
         try {
@@ -881,7 +868,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
     });
   }
 
-                                                       
+
 
   const successfulTransactions = results.filter(result =>
     !result.error &&
@@ -994,7 +981,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
     );
   }
 
-                                                         
+
 
   window.__WRITE_KEYS = verifiedResults.map(
     result => result.pseudonym
@@ -1024,7 +1011,7 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
     "✅ Write records and fingerprints saved to window.__WRITE_RECORDS"
   );
 
-                                                          
+
 
   const columns = [
     "run",
@@ -1126,8 +1113,8 @@ async function runLatencyGasTest(NUM_RUNS = 15) {
   return results;
 }
 
-             
+
 runLatencyGasTest(15).catch(error => {
   console.error("\n❌ Test script terminated: ", error);
-  console.error("See the first complete error message above." );
+  console.error("See the first complete error message above.");
 });

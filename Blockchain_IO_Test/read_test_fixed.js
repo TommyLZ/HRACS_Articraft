@@ -1,24 +1,11 @@
-                             
-                                                         
-                             
-                                   
-                                                    
-                  
-              
-                                                 
-                            
-                                   
-
 async function runReadLatencyTest(NUM_RUNS = 15) {
 
-                                           
+
   const ethers = await import(
     "https://cdn.jsdelivr.net/npm/ethers@6.13.0/+esm"
   );
 
-                                   
 
-                                                            
   const contractAddr =
     "0xc10F26fEC5455CBC9E880946719A0309BAd81332";
 
@@ -29,7 +16,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
   const EXPECTED_FINGERPRINT_BYTES = 128;
   const WARMUP_RUNS = 3;
 
-                                   
+
   const abi = [
     {
       name: "getPseudonymData",
@@ -58,10 +45,10 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
     }
   ];
 
-                                    
+
   const provider = new ethers.JsonRpcProvider(RPC_URL);
 
-                                      
+
   const network = await provider.getNetwork();
 
   console.log(
@@ -76,7 +63,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
     );
   }
 
-                       
+
   const contractCode = await provider.getCode(contractAddr);
 
   if (contractCode === "0x") {
@@ -92,7 +79,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
     provider
   );
 
-                                        
+
   function extractPseudonym(item) {
     if (typeof item === "string") {
       return item;
@@ -114,7 +101,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
 
   const candidateItems = [];
 
-                                    
+
   if (
     Array.isArray(window.__WRITE_KEYS) &&
     window.__WRITE_KEYS.length > 0
@@ -122,7 +109,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
     candidateItems.push(...window.__WRITE_KEYS);
   }
 
-                            
+
   if (
     Array.isArray(window.__testResults) &&
     window.__testResults.length > 0
@@ -153,7 +140,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
     `✅ Detected ${validPseudonyms.length} actual written pseudonyms`
   );
 
-                            
+
   const keysToRead = [];
 
   for (let i = 0; i < NUM_RUNS; i++) {
@@ -162,7 +149,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
     );
   }
 
-                                 
+
   console.log(
     `Running ${WARMUP_RUNS} warm-up reads; warm-up results are excluded from statistics...`
   );
@@ -173,7 +160,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
 
   console.log("✅ Warm-up complete");
 
-                                   
+
   function mean(values) {
     return (
       values.reduce((sum, value) => sum + value, 0) /
@@ -181,7 +168,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
     );
   }
 
-                    
+
   function sampleStdDev(values) {
     if (values.length <= 1) {
       return 0;
@@ -219,7 +206,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
     );
   }
 
-                                   
+
   const results = [];
 
   for (let i = 0; i < NUM_RUNS; i++) {
@@ -334,7 +321,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
     }
   }
 
-                                   
+
   const successResults = results.filter(
     result => !result.error
   );
@@ -409,7 +396,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
     "and does not incur a gas fee payable by the user."
   );
 
-                                     
+
   function escapeCsv(value) {
     const text =
       value === null || value === undefined
@@ -461,7 +448,7 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
     )
   ];
 
-                           
+
   const csvContent =
     "\uFEFF" + csvRows.join("\n");
 
@@ -498,5 +485,5 @@ async function runReadLatencyTest(NUM_RUNS = 15) {
   return results;
 }
 
-            
+
 runReadLatencyTest(15);
